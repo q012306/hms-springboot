@@ -14,8 +14,6 @@ public class UserService {
     @Autowired
     UserDAO userDAO;
 
-    UserService userService;
-
     public boolean isExist(String username) {
         User user = getByName(username);
         return null!=user;
@@ -23,6 +21,10 @@ public class UserService {
 
     public User getByName(String username) {
         return userDAO.findByUsername(username);
+    }
+
+    public User getById(int id) {
+        return userDAO.findById(id);
     }
 
     public User get(String username, String password){
@@ -37,8 +39,11 @@ public class UserService {
         userDAO.save(user);
     }
 
+    public void deleteById(int id) {
+        userDAO.deleteById(id);
+    }
+
     public List<User> list() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
-        return userDAO.findAll(sort);
+        return userDAO.findAll();
     }
 }

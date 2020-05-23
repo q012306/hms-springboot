@@ -19,6 +19,9 @@ public class User {
     @Column(name = "u_password")
     private String password;
 
+    @Column(name = "u_sid")
+    private Integer sid;
+
     public Integer getId() {
         return id;
     }
@@ -41,6 +44,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
     }
 
 }

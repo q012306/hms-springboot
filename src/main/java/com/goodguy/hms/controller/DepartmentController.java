@@ -13,20 +13,20 @@ public class DepartmentController {
 
     @GetMapping("/api/departments")
     @CrossOrigin
-    public List<Department> list() throws Exception {
+    public List<Department> list() {
         return departmentService.list();
     }
 
     @PostMapping("/api/departments")
     @CrossOrigin
-    public Department addOrUpdate(@RequestBody Department department) throws Exception {
+    public Department addOrUpdate(@RequestBody Department department) {
         departmentService.addOrUpdate(department);
         return department;
     }
 
     @PostMapping("/api/departmentsdelete")
     @CrossOrigin
-    public void delete(@RequestBody Department department) throws Exception {
+    public void delete(@RequestBody Department department) {
         departmentService.deleteById(department.getSid());
     }
 }

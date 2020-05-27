@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class LoginController {
+public class UserController {
 
     @Autowired
     UserService userService;

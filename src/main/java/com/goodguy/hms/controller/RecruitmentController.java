@@ -40,7 +40,9 @@ public class RecruitmentController {
     public void hire(@RequestBody Recruitment recruitment) {
         Person person = new Person();
         person.setSname(recruitment.getSname());
-        person.setSsex(recruitment.getssex());
+        person.setSsex(recruitment.getSsex());
+        person.setSdepartment(recruitment.getSdepartment());
+        person.setSjob(recruitment.getSjob());
         person.setSbirthday(recruitment.getSbirthday());
         person.setSedu(recruitment.getSedu());
         person.setSspcialty(recruitment.getSspcialty());

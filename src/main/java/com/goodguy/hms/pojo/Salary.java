@@ -12,7 +12,7 @@ public class Salary {
     //@Column(name = "sid")
     private Integer sid;
     private String sname;
-    private String ssalary;
+    private Integer ssalary;
 
     public Integer getSid() {
         return sid;
@@ -26,11 +26,10 @@ public class Salary {
     public void setSname(String sname) {
         this.sname = sname;
     }
-
-    public String getSsalary() {
+    public Integer getSsalary() {
         return ssalary;
     }
-    public void setSsalary(String ssalary) {
+    public void setSsalary(Integer ssalary) {
         this.ssalary = ssalary;
     }
 }

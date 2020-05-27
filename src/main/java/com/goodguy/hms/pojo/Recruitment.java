@@ -12,6 +12,8 @@ public class Recruitment {
     private Integer sid;
     private String sname;
     private String ssex;
+    private String sdepartment;
+    private String sjob;
     private String sbirthday;
     private String sedu;
     private String sspcialty;
@@ -31,11 +33,23 @@ public class Recruitment {
     public void setSname(String sname) {
         this.sname = sname;
     }
-    public String getssex() {
+    public String getSsex() {
         return ssex;
     }
     public void setSsex(String ssex) {
         this.ssex = ssex;
+    }
+    public String getSdepartment() {
+        return sdepartment;
+    }
+    public void setSdepartment(String sdepartment) {
+        this.sdepartment = sdepartment;
+    }
+    public String getSjob() {
+        return sjob;
+    }
+    public void setSjob(String sjob) {
+        this.sjob = sjob;
     }
     public String getSbirthday() {
         return sbirthday;

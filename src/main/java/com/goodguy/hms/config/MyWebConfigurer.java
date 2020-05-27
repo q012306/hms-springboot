@@ -1,7 +1,7 @@
 package com.goodguy.hms.config;
 
 
-import com.goodguy.hms.interceptor.LoginInterceptor;
+import com.goodguy.hms.interceptor.AuthorityInterceptor;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.*;
@@ -10,8 +10,8 @@ import org.springframework.web.servlet.config.annotation.*;
 public class MyWebConfigurer implements WebMvcConfigurer {
 
     @Bean
-    public LoginInterceptor getLoginInterceptor() {
-        return new LoginInterceptor();
+    public AuthorityInterceptor getLoginInterceptor() {
+        return new AuthorityInterceptor();
     }
 
     @Override

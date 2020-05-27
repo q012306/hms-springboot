@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
  * preHandle 方法里的代码会在访问需要拦截的页面时执行。
  */
 
-public class LoginInterceptor implements HandlerInterceptor{
+public class AuthorityInterceptor implements HandlerInterceptor{
 
     @Override
     public boolean preHandle (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {

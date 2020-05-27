@@ -33,6 +33,7 @@ public class UserController {
             return new Result(400);
         } else {
             session.setAttribute("user", user);
+            session.setAttribute("person", usergetmyperson(session));
             return new Result(200);
         }
     }

@@ -1,6 +1,9 @@
 package com.goodguy.hms.interceptor;
 
+import com.goodguy.hms.pojo.Person;
 import com.goodguy.hms.pojo.User;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,15 +21,26 @@ import javax.servlet.http.HttpSession;
 public class AuthorityInterceptor implements HandlerInterceptor{
 
     @Override
-    public boolean preHandle (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+    public boolean preHandle (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o){
+        // 放行 options 请求，否则无法让前端带上自定义的 header 信息，导致 sessionID 改变，shiro 验证失败
+        if (HttpMethod.OPTIONS.toString().equals(httpServletRequest.getMethod())) {
+            httpServletResponse.setStatus(HttpStatus.NO_CONTENT.value());
+            return true;
+        }
+
         HttpSession session = httpServletRequest.getSession();
         String uri = httpServletRequest.getRequestURI();
-        String page = uri;
-        System.out.println(page);
-        if(!( page.equals("/login") || page.equals("/api/login") || page.equals("/api/register") )){
+        System.out.println(uri);
+        if(!( uri.equals("/login") || uri.equals("/api/login") || uri.equals("/api/register") )){
             User user = (User) session.getAttribute("user");
             if(user==null) {
-                httpServletResponse.sendRedirect("/login");
+                return false;
+            }
+        }
+        if( uri.equals("/api/persons") || uri.equals("/api/personsdelete") ){
+            Person person = (Person)session.getAttribute("person");
+            if(!"人事经理".equals(person.getSjob())){
+                System.out.println(person.getSjob() + "职务无对应权限");
                 return false;
             }
         }

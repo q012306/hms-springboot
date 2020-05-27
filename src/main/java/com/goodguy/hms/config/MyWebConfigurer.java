@@ -20,4 +20,14 @@ public class MyWebConfigurer implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/index.html","/js/**","/css/**","/img/**","/fonts/**","/favicon.ico");//vue单页面应用,所有路径应用拦截器，除了 /index.html
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowCredentials(true)
+                .allowedOrigins("http://localhost:8080")
+                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+                .allowedHeaders("*");
+    }
+
 }

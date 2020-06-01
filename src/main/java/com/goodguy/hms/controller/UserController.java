@@ -26,8 +26,6 @@ public class UserController {
     @PostMapping(value = "/api/login")
     public Result login(@RequestBody User requestUser, HttpSession session) {
         String username = requestUser.getUsername();
-        username = HtmlUtils.htmlEscape(username);
-
         User user = userService.get(username,DigestUtils.md5DigestAsHex(requestUser.getPassword().getBytes()));
         if (null == user) {
             return new Result(400);
@@ -48,6 +46,14 @@ public class UserController {
             userService.add(registerUser);
             return new Result(200);
         }
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/api/logout")
+    public Result logout(HttpSession session) {
+        session.removeAttribute("user");
+        session.removeAttribute("person");
+        return new Result(200);
     }
 
     @CrossOrigin

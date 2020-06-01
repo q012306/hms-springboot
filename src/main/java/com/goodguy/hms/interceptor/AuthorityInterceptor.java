@@ -1,6 +1,7 @@
 package com.goodguy.hms.interceptor;
 
 import com.goodguy.hms.pojo.Person;
+import com.goodguy.hms.pojo.Recruitment;
 import com.goodguy.hms.pojo.User;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class AuthorityInterceptor implements HandlerInterceptor{
 
     @Override
     public boolean preHandle (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o){
-        // 放行 options 请求，否则无法让前端带上自定义的 header 信息，导致 sessionID 改变，shiro 验证失败
+        // 放行 options 请求，否则无法让前端带上自定义的 header 信息，导致 sessionID 改变
         if (HttpMethod.OPTIONS.toString().equals(httpServletRequest.getMethod())) {
             httpServletResponse.setStatus(HttpStatus.NO_CONTENT.value());
             return true;
@@ -37,9 +38,58 @@ public class AuthorityInterceptor implements HandlerInterceptor{
                 return false;
             }
         }
-        if( uri.equals("/api/persons") || uri.equals("/api/personsdelete") ){
+
+        if( uri.equals("/api/departments") || uri.equals("/api/departmentsdelete")){
             Person person = (Person)session.getAttribute("person");
-            if(!"人事经理".equals(person.getSjob())){
+            if(!"董事长".equals(person.getSjob())){
+                System.out.println(person.getSjob() + "职务无对应权限");
+                return false;
+            }
+        }
+
+        if( uri.equals("/api/persons") || uri.equals("/api/personsdelete")){
+            Person person = (Person)session.getAttribute("person");
+            if(!"人事经理".equals(person.getSjob()) && !"董事长".equals(person.getSjob())){
+                System.out.println(person.getSjob() + "职务无对应权限");
+                return false;
+            }
+        }
+
+        if( uri.equals("/api/randps") || uri.equals("/api/randpsdelete")){
+            Person person = (Person)session.getAttribute("person");
+            if(!"财务经理".equals(person.getSjob()) && !"董事长".equals(person.getSjob())){
+                System.out.println(person.getSjob() + "职务无对应权限");
+                return false;
+            }
+        }
+
+        if(/* uri.equals("/api/recruitments") || */uri.equals("/api/recruitmentsdelete") || uri.equals("/api/personhire")){
+            Person person = (Person)session.getAttribute("person");
+            if(!"人事经理".equals(person.getSjob()) && !"董事长".equals(person.getSjob())){
+                System.out.println(person.getSjob() + "职务无对应权限");
+                return false;
+            }
+        }
+
+        if( uri.equals("/api/salarys") || uri.equals("/api/salarysdelete")){
+            Person person = (Person)session.getAttribute("person");
+            if(!"财务经理".equals(person.getSjob()) && !"董事长".equals(person.getSjob())){
+                System.out.println(person.getSjob() + "职务无对应权限");
+                return false;
+            }
+        }
+
+        if( uri.equals("/api/trainings") || uri.equals("/api/trainingsdelete")){
+            Person person = (Person)session.getAttribute("person");
+            if(!"技术经理".equals(person.getSjob()) && !"董事长".equals(person.getSjob())){
+                System.out.println(person.getSjob() + "职务无对应权限");
+                return false;
+            }
+        }
+
+        if( uri.equals("/api/users") || uri.equals("/api/usersdelete")){
+            Person person = (Person)session.getAttribute("person");
+            if(!"董事长".equals(person.getSjob())){
                 System.out.println(person.getSjob() + "职务无对应权限");
                 return false;
             }
